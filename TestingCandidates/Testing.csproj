@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\TestCandidatesImages\Bennet1.png" />
+    <None Remove="Resources\TestCandidatesImages\Bennet10.png" />
+    <None Remove="Resources\TestCandidatesImages\Bennet11.png" />
+    <None Remove="Resources\TestCandidatesImages\Bennet2.png" />
+    <None Remove="Resources\TestCandidatesImages\Bennet3.png" />
+    <None Remove="Resources\TestCandidatesImages\Bennet4.png" />
+    <None Remove="Resources\TestCandidatesImages\Bennet5.png" />
+    <None Remove="Resources\TestCandidatesImages\Bennet6.png" />
+    <None Remove="Resources\TestCandidatesImages\Bennet7.png" />
+    <None Remove="Resources\TestCandidatesImages\Bennet8.png" />
+    <None Remove="Resources\TestCandidatesImages\Bennet9.png" />
+    <None Remove="Resources\TestCandidatesImages\CenterMill.png" />
+    <None Remove="Resources\TestCandidatesImages\RoundAngles.png" />
+    <None Remove="Resources\TestCandidatesImages\Segments.png" />
+    <None Remove="Resources\TestCandidatesImages\TriangleAngle.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\TestCandidatesImages\Bennet1.png" />
+    <Resource Include="Resources\TestCandidatesImages\Bennet10.png" />
+    <Resource Include="Resources\TestCandidatesImages\Bennet11.png" />
+    <Resource Include="Resources\TestCandidatesImages\Bennet2.png" />
+    <Resource Include="Resources\TestCandidatesImages\Bennet3.png" />
+    <Resource Include="Resources\TestCandidatesImages\Bennet4.png" />
+    <Resource Include="Resources\TestCandidatesImages\Bennet5.png" />
+    <Resource Include="Resources\TestCandidatesImages\Bennet6.png" />
+    <Resource Include="Resources\TestCandidatesImages\Bennet7.png" />
+    <Resource Include="Resources\TestCandidatesImages\Bennet8.png" />
+    <Resource Include="Resources\TestCandidatesImages\Bennet9.png" />
+    <Resource Include="Resources\TestCandidatesImages\CenterMill.png" />
+    <Resource Include="Resources\TestCandidatesImages\RoundAngles.png" />
+    <Resource Include="Resources\TestCandidatesImages\Segments.png" />
+    <Resource Include="Resources\TestCandidatesImages\TriangleAngle.png" />
+  </ItemGroup>
+
+</Project>

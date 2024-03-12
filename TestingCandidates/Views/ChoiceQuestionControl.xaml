@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="Testing.Views.ChoiceQuestionControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Testing.Views"
+             mc:Ignorable="d" FontSize="16"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Row="0" Header="Вопрос">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="{Binding Question.QuestionText, RelativeSource={RelativeSource AncestorType=local:ChoiceQuestionControl}}"
+                           TextWrapping="Wrap"/>
+                <Viewbox Grid.Row="1" Margin="20">
+                    <Image Source="{Binding Question.ImageSource, Converter={StaticResource ImageConverter},
+                        RelativeSource={RelativeSource AncestorType=local:ChoiceQuestionControl}}"/>
+                </Viewbox>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="2" Header="Ответ">
+            <StackPanel>
+                <RadioButton Content="{Binding Question.Answers[1], RelativeSource={RelativeSource AncestorType=local:ChoiceQuestionControl}}"/>
+                <RadioButton Content="{Binding Question.Answers[2], RelativeSource={RelativeSource AncestorType=local:ChoiceQuestionControl}}"/>
+                <RadioButton Content="{Binding Question.Answers[3], RelativeSource={RelativeSource AncestorType=local:ChoiceQuestionControl}}"/>
+            </StackPanel>
+        </GroupBox>
+    </Grid>
+</UserControl>
