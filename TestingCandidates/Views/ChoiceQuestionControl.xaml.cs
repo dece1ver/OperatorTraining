@@ -34,5 +34,17 @@ namespace Testing.Views
 
         public static readonly DependencyProperty QuestionProperty =
             DependencyProperty.Register(nameof(Question), typeof(ChoiceQuestion), typeof(ChoiceQuestionControl), new PropertyMetadata(null));
+
+        public double ImageHeight
+        {
+            get { return (int)GetValue(ImageHeightProperty); }
+            set { SetValue(ImageHeightProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ImageHeight.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ImageHeightProperty =
+            DependencyProperty.Register("ImageHeight", typeof(double), typeof(ChoiceQuestionControl), new PropertyMetadata(double.NaN));
+
+
     }
 }

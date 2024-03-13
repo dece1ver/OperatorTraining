@@ -9,42 +9,18 @@
         xmlns:m="clr-namespace:Testing.Models"
         xmlns:vm="clr-namespace:Testing.ViewModels"
         mc:Ignorable="d" FontSize="16"
-        Title="MainWindow" Height="600" Width="800">
+        Title="{Binding CandidateName}" Height="500" Width="800">
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
     <Window.Resources>
-        <DataTemplate x:Key="HelloScreenTemplate">
-            <Grid Margin="10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" 
-                           Text="Приветствие и описание." Margin="0 0 0 5"/>
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="ФИО:"/>
-                <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" 
-                         d:Text="Бабохин К.Г." Margin="5 0 0 0"/>
-            </Grid>
-        </DataTemplate>
         <DataTemplate x:Key="ChoiceQuestionTemplate" DataType="{x:Type m:ChoiceQuestion}">
-            <v:ChoiceQuestionControl Question="{Binding}"/>
+            <v:ChoiceQuestionControl Question="{Binding}" ImageHeight="150"/>
         </DataTemplate>
         <DataTemplate x:Key="MathQuestionTemplate" DataType="{x:Type m:MathQuestion}">
             <v:MathQuestionControl Question="{Binding}"/>
         </DataTemplate>
         <inf:QuestionTemplateSelector x:Key="QuestionTemplateSelector"
-                                        HelloScreenTemplate="{StaticResource HelloScreenTemplate}"
                                         ChoiceQuestionTemplate="{StaticResource ChoiceQuestionTemplate}"
                                         MathQuestionTemplate="{StaticResource MathQuestionTemplate}" />
     </Window.Resources>
@@ -58,8 +34,35 @@
         </DockPanel>
         <DockPanel>
             <Button Margin="10 0 10 5" DockPanel.Dock="Bottom" Command="{Binding NextQuestionCommand}" Content="Далее" Height="30"/>
-            <ContentControl Content="{Binding CurrentQuestion}" 
-                            ContentTemplateSelector="{DynamicResource QuestionTemplateSelector}"/>
+            <Grid>
+                <Grid Margin="10" Visibility="{Binding State, Converter={StaticResource StateToVisibilityConverter}, ConverterParameter={x:Static m:AppState.StartScreen}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" 
+                               Text="Приветствие и описание." Margin="0 0 0 5"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="ФИО:"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" 
+                             Text="{Binding CandidateName}"
+                             d:Text="Бабохин К.Г." Margin="5 0 0 0"/>
+                </Grid>
+                <ContentControl Content="{Binding CurrentQuestion}" Visibility="{Binding State, Converter={StaticResource StateToVisibilityConverter}, ConverterParameter={x:Static m:AppState.Quiz}}"
+                                ContentTemplateSelector="{DynamicResource QuestionTemplateSelector}"/>
+                <Grid Margin="10" Visibility="{Binding State, Converter={StaticResource StateToVisibilityConverter}, ConverterParameter={x:Static m:AppState.ShowResult}}">
+                    <TextBox Text="{Binding QuizResult}" IsReadOnly="True"/>
+                </Grid>
+            </Grid>
         </DockPanel>
         
     </DockPanel>

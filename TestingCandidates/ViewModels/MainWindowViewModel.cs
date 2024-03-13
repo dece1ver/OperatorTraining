@@ -9,6 +9,8 @@ using Testing.ViewModels.Base;
 using System.Collections.ObjectModel;
 using System.Windows.Media;
 using Images = Testing.Infrastructure.Images;
+using System.Linq;
+using Testing.Models;
 
 namespace Testing.ViewModels
 {
@@ -19,32 +21,70 @@ namespace Testing.ViewModels
         {
             _Questions = new();
             _Status = string.Empty;
+            _QuizResult = string.Empty;
+            _CandidateName = string.Empty;
             UpdateQuizCommand = new LambdaCommand(OnUpdateQuizCommandExecuted, CanUpdateQuizCommandExecute);
             NextQuestionCommand = new LambdaCommand(OnNextQuestionCommandExecuted, CanNextQuestionCommandExecute);
             _CurrentQuestion = null;
+            State = AppState.StartScreen;
             GenerateCandidatesQuestions();
         }
 
         private ObservableCollection<IQuestion> _Questions;
-        /// <summary> Описание </summary>
+        /// <summary> Вопросы </summary>
         public ObservableCollection<IQuestion> Questions
         {
             get => _Questions;
             set => Set(ref _Questions, value);
         }
 
-
         private IQuestion? _CurrentQuestion;
-        /// <summary> Описание </summary>
+        /// <summary> Текущий вопрос </summary>
         public IQuestion? CurrentQuestion
         {
             get => _CurrentQuestion;
             set => Set(ref _CurrentQuestion, value);
         }
 
+        private bool _IsComplete;
+        /// <summary> Завершен ли опрос </summary>
+        public bool IsComplete
+        {
+            get => _IsComplete;
+            set => Set(ref _IsComplete, value);
+        }
+
+
+
+        private AppState _State;
+        /// <summary> Статус приложения </summary>
+        public AppState State
+        {
+            get => _State;
+            set => Set(ref _State, value);
+        }
+
+
+        private string _QuizResult;
+        /// <summary> Результат опроса </summary>
+        public string QuizResult
+        {
+            get => _QuizResult;
+            set => Set(ref _QuizResult, value);
+        }
+
+
+        private string _CandidateName;
+        /// <summary> Кто проходит опрос </summary>
+        public string CandidateName
+        {
+            get => _CandidateName;
+            set => Set(ref _CandidateName, value);
+        }
+
 
         private string _Status;
-        /// <summary> Описание </summary>
+        /// <summary> Статус </summary>
         public string Status
         {
             get => _Status;
@@ -107,12 +147,30 @@ namespace Testing.ViewModels
             if (CurrentQuestion == null)
             {
                 currentQuestionIndex = 0;
+                State = AppState.Quiz;
             } else
             {
                 currentQuestionIndex++;
             }
-            CurrentQuestion = Questions[currentQuestionIndex];
-            Status = $"{CurrentQuestion.GetType().Name} №{currentQuestionIndex} | Ответ: {CurrentQuestion.UserAnswer}/{CurrentQuestion.CorrectAnswer}";
+            if (currentQuestionIndex < Questions.Count)
+            {
+                CurrentQuestion = Questions[currentQuestionIndex];
+                Status = $"{CurrentQuestion.GetType().Name} №{currentQuestionIndex} | Ответ: {CurrentQuestion.UserAnswer}/{CurrentQuestion.CorrectAnswer}";
+            }
+            else
+            {
+                State = AppState.ShowResult;
+                Status = "Опрос завершен";
+                QuizResult = $"Проходил опрос: {CandidateName}\n" +
+                    $"Правильных ответов: {Questions.Count(q => q.IsCorrectAnswer)}/{Questions.Count}\n";
+
+                foreach (var question in Questions)
+                {
+                    QuizResult += $"\nВопрос{(string.IsNullOrEmpty(question.ImageSource) ? "" : " (с картинкой)")}:\n{question.QuestionText}\n" +
+                        $"Ваш ответ: {question.UserAnswer} ({(question.IsCorrectAnswer ? "верно" : "неверно")})" +
+                        $"\nПравильный ответ {question.CorrectAnswer:0.##}\n";
+                }
+            }
         }
         private static bool CanNextQuestionCommandExecute(object p) => true;
     }

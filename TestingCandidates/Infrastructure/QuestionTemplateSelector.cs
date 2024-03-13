@@ -11,7 +11,6 @@ namespace Testing.Infrastructure
 {
     public class QuestionTemplateSelector : DataTemplateSelector
     {
-        public DataTemplate HelloScreenTemplate { get; set; }
         public DataTemplate ChoiceQuestionTemplate { get; set; }
         public DataTemplate MathQuestionTemplate { get; set; }
 
@@ -19,7 +18,6 @@ namespace Testing.Infrastructure
         {
             return item switch
             {
-                null => HelloScreenTemplate,
                 ChoiceQuestion => ChoiceQuestionTemplate,
                 MathQuestion => MathQuestionTemplate,
                 _ => base.SelectTemplate(item, container),

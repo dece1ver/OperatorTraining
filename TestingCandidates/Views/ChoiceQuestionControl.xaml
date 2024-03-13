@@ -19,7 +19,7 @@
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Text="{Binding Question.QuestionText, RelativeSource={RelativeSource AncestorType=local:ChoiceQuestionControl}}"
                            TextWrapping="Wrap"/>
-                <Viewbox Grid.Row="1" Margin="20">
+                <Viewbox Grid.Row="1" Margin="20" Height="{Binding ImageHeight, RelativeSource={RelativeSource AncestorType=local:ChoiceQuestionControl}}">
                     <Image Source="{Binding Question.ImageSource, Converter={StaticResource ImageConverter},
                         RelativeSource={RelativeSource AncestorType=local:ChoiceQuestionControl}}"/>
                 </Viewbox>

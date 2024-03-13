@@ -21,9 +21,14 @@ namespace Testing.Models
         {
             get
             {
-                if (UserAnswer is double answer && Math.Abs(answer - (double)CorrectAnswer) > 0.001) return true;
+                if (UserAnswer is string s && double.TryParse(s.Replace(",","."), out double answer) && Math.Abs(answer - (double)CorrectAnswer) < 0.001) return true;
                 return false;
             }
+        }
+
+        public bool IsCorrectCheck()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -26,7 +26,7 @@ namespace Testing.Models
         {
             get
             {
-                if (UserAnswer is int answer && answer == (int)CorrectAnswer) return true;
+                if (UserAnswer is string s && int.TryParse(s.Replace(",","."), out int answer) && answer == (int)CorrectAnswer) return true;
                 return false;
             }
         }

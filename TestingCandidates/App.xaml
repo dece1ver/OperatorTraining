@@ -6,5 +6,7 @@
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
          <cnv:ImageConverter x:Key="ImageConverter"/>
+         <cnv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+         <cnv:StateToVisibilityConverter x:Key="StateToVisibilityConverter"/>
     </Application.Resources>
 </Application>
